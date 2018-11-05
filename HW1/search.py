@@ -90,7 +90,8 @@ def depthFirstSearch(problem):
 
     mystack = util.Stack()
     visited = []
-    mystack.push([(problem.getStartState(), "Start", 1)])
+    start = problem.getStartState()
+    mystack.push([(start, "Start", 1)])
     
     while True:
         path = mystack.pop()
@@ -102,7 +103,7 @@ def depthFirstSearch(problem):
 
         if curr_state not in visited:
             visited.append(curr_state)
-            
+
             for successor in problem.getSuccessors(curr_state):
                 if successor[0] not in visited:
                     # Copy parent's path
@@ -120,7 +121,8 @@ def breadthFirstSearch(problem):
 
     myqueue = util.Queue()
     visited = []
-    myqueue.push([(problem.getStartState(), "Start", 1)])
+    start = problem.getStartState()
+    myqueue.push([(start, "Start", 1)])
 
     while True:
         path = myqueue.pop()
@@ -148,9 +150,10 @@ def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
     
-    pq = util.PriorityQueueWithFunction(cost)
+    pq = util.PriorityQueueWithFunction()
     visited = []
-    pq.push([(problem.getStartState(), "Start", 1)])
+    start = problem.getStartState()
+    pq.update([(start, "Start", 1)])
 
     while True:
         path = pq.pop()
@@ -168,6 +171,7 @@ def uniformCostSearch(problem):
                 if successor[0] not in visited:
                     # Copy parent's path
                     successorPath = path[:]
+                    # Set mikone path succesor node o be parent path
                     successorPath.append(successor)
                     pq.push(successorPath)
     #age namovafagh bashe
