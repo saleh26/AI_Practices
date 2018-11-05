@@ -87,19 +87,22 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     "*** YOUR CODE HERE ***"
+
     mystack = util.Stack()
     visited = []
-    
     mystack.push([(problem.getStartState(), "Start", 1)])
     
-    while not mystack.isEmpty():
+    while True:
         path = mystack.pop()
         # current_state  avalin element dar akharin tuple path
         curr_state = path[-1][0]
+
         if problem.isGoalState(curr_state):
             return [x[1] for x in path][1:]
+
         if curr_state not in visited:
             visited.append(curr_state)
+            
             for successor in problem.getSuccessors(curr_state):
                 if successor[0] not in visited:
                     # Copy parent's path
@@ -114,31 +117,62 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
+
     myqueue = util.Queue()
     visited = []
     myqueue.push([(problem.getStartState(), "Start", 1)])
-    while not mystack.isEmpty():
-        path = mystack.pop()
+
+    while True:
+        path = myqueue.pop()
         # current_state  avalin element dar akharin tuple path
         curr_state = path[-1][0]
+
         if problem.isGoalState(curr_state):
+        	#return mikone action ha ro ba ignore kardan Start
             return [x[1] for x in path][1:]
+
         if curr_state not in visited:
             visited.append(curr_state)
+
             for successor in problem.getSuccessors(curr_state):
                 if successor[0] not in visited:
                     # Copy parent's path
                     successorPath = path[:]
                     successorPath.append(successor)
-                    mystack.push(successorPath)
+                    myqueue.push(successorPath)
     #age namovafagh bashe
     return false
-    util.raiseNotDefined()
+   # util.raiseNotDefined()
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    
+    pq = util.PriorityQueueWithFunction(cost)
+    visited = []
+    pq.push([(problem.getStartState(), "Start", 1)])
+
+    while True:
+        path = pq.pop()
+        # current_state  avalin element dar akharin tuple path
+        curr_state = path[-1][0]
+
+        if problem.isGoalState(curr_state):
+        	#return mikone action ha ro ba ignore kardan Start
+            return [x[1] for x in path][1:]
+
+        if curr_state not in visited:
+            visited.append(curr_state)
+
+            for successor in problem.getSuccessors(curr_state):
+                if successor[0] not in visited:
+                    # Copy parent's path
+                    successorPath = path[:]
+                    successorPath.append(successor)
+                    pq.push(successorPath)
+    #age namovafagh bashe
+    return false
+    # util.raiseNotDefined()
 
 def nullHeuristic(state, problem=None):
     """
