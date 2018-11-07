@@ -147,15 +147,21 @@ def breadthFirstSearch(problem):
     return false
    # util.raiseNotDefined()
 
-def getCost(path, problem):
-	cost = problem.getCostOfActions([x[1] for x in path][1:])
-	return cost
+# def getCost(problem, path):
+	# cost = problem.getCostOfActions([x[1] for x in path][1:])
+	# return cost
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-	cost = getCost(path, problem)
 
+	#cost = getcost(problem)
+
+	#mohasebe cost action haye path
+    cost = lambda path: problem.getCostOfActions([x[1] for x in path][1:])
+    
+    #pq = util.PriorityQueueWithFunction(getCost(problem, path ))
+    
     pq = util.PriorityQueueWithFunction(cost)
     visited = []
     start = problem.getStartState()
