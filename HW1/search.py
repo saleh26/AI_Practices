@@ -62,6 +62,7 @@ class SearchProblem:
         util.raiseNotDefined()
 
 
+
 def tinyMazeSearch(problem):
     """
     Returns a sequence of moves that solves tinyMaze.  For any other maze, the
@@ -146,14 +147,19 @@ def breadthFirstSearch(problem):
     return false
    # util.raiseNotDefined()
 
+def getCost(path, problem):
+	cost = problem.getCostOfActions([x[1] for x in path][1:])
+	return cost
+
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    
-    pq = util.PriorityQueueWithFunction()
+	cost = getCost(path, problem)
+
+    pq = util.PriorityQueueWithFunction(cost)
     visited = []
     start = problem.getStartState()
-    pq.update([(start, "Start", 1)])
+    pq.push([(start, "Start", 1)])
 
     while True:
         path = pq.pop()
