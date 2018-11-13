@@ -200,6 +200,36 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
+    #                                                  g(n)                +            h(n)
+    cost = lambda path: problem.getCostOfActions([x[1] for x in path][1:]) + heuristic(path[-1][0], problem)
+  
+    pq = util.PriorityQueueWithFunction(cost)
+
+    start = problem.getStartState()
+    pq.push([(start, "Start", 1)])
+
+    while True:
+        path = pq.pop()
+        # current_state  avalin element dar akharin tuple path
+        curr_state = path[-1][0]
+
+        if problem.isGoalState(curr_state):
+        	#return mikone action ha ro ba ignore kardan Start
+            return [x[1] for x in path][1:]
+
+        if curr_state not in visited:
+            visited.append(curr_state)
+
+            for successor in problem.getSuccessors(curr_state):
+                if successor[0] not in visited:
+                    # Copy parent's path
+                    successorPath = path[:]
+                    # Set mikone path succesor node o be parent path
+                    successorPath.append(successor)
+                    pq.push(successorPath)
+    #age namovafagh bashe
+    return false
+
     util.raiseNotDefined()
 
 
