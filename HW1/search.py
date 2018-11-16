@@ -204,7 +204,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     cost = lambda path: problem.getCostOfActions([x[1] for x in path][1:]) + heuristic(path[-1][0], problem)
   
     pq = util.PriorityQueueWithFunction(cost)
-
+    visited = []
     start = problem.getStartState()
     pq.push([(start, "Start", 1)])
 
